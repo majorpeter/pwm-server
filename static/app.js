@@ -98,7 +98,6 @@ function refreshState() {
 		data: {cmd: 'status'},
 		dataType: 'json',
 		success: function(response){
-			$('span#state').html("status: " + response['status']);
 			if (response['status'] != 'off') {
 				$('div#header div.power').addClass('on');
 			} else {
