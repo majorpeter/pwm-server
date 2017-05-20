@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>RGB-blaster</title>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="/style.css" />
+		<script src="/jquery-3.2.1.min.js"></script>
+		<script src="/app.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	</head>
+	<body>
+		<div id="header">
+			<span>RGB-blaster</span>
+		</div>
+		
+		<div id="colors" class="control-box">
+			<div class="header">
+				Colors
+				<div class="preview" title="Preview">&nbsp;</div>
+			</div>
+			<div class="content">
+				<span id="state">&nbsp;</span>
+				<table><tbody>
+					<tr>
+						<td><div class="thumb red" title="Red">&nbsp;</div></td>
+						<td><div class="slider red"><div class="but red">&nbsp;</div></div></td>
+						<td><input type="number" class="color" value="0" id="red" /></td>
+					</tr>
+					<tr>
+						<td><div class="thumb green" title="Green">&nbsp;</div></td>
+						<td><div class="slider green"><div class="but green">&nbsp;</div></div></td>
+						<td><input type="number" class="color" value="0" id="green" /></td>
+					</tr>
+					<tr>
+						<td><div class="thumb blue" title="Blue">&nbsp;</div></td>
+						<td><div class="slider blue"><div class="but blue">&nbsp;</div></div></td>
+						<td><input type="number" class="color" value="0" id="blue" /></td>
+					</tr>
+					<tr>
+						<td><div class="thumb white" title="Brightness">B</div></td>
+						<td><div class="slider brightness"><div class="but brightness">&nbsp;</div></div></td>
+						<td><input type="number" value="255" id="brightness" /></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+	</body>
+</html>
