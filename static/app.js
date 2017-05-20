@@ -11,7 +11,7 @@ $(document).ready(function(){
 				data: {cmd: 'off'},
 				dataType: 'json',
 				success: function(){
-					$('div#header div.power').removeClass('on');
+					refreshState();
 				}
 			});
 		else
@@ -21,7 +21,7 @@ $(document).ready(function(){
 				data: {cmd: 'default'},
 				dataType: 'json',
 				success: function() {
-					$('div#header div.power').addClass('on');
+					refreshState();
 				}
 			});
 	});
@@ -86,7 +86,33 @@ $(document).ready(function(){
 	$('div#colors div.slider > div.but').mousedown(function(){
 		crSlider = this.classList[1];
 	});
+	
+	
+	refreshState();
 });
+
+function refreshState() {
+	$.ajax({
+		method: 'POST',
+		url: '/rpc',
+		data: {cmd: 'status'},
+		dataType: 'json',
+		success: function(response){
+			$('span#state').html("status: " + response['status']);
+			if (response['status'] != 'off') {
+				$('div#header div.power').addClass('on');
+			} else {
+				$('div#header div.power').removeClass('on');
+			}
+
+			$('input#red').val(response['red']);
+			$('input#green').val(response['green']);
+			$('input#blue').val(response['blue']);
+			$('input#brightness').val(response['brightness']);
+			updateSliders();
+		}
+	});
+}
 
 function updateSliders() {
 	$('div.slider div.but.red').css('left', $('input.color#red').val()/2.55+'%');

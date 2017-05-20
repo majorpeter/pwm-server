@@ -37,13 +37,26 @@ app.post('/rpc', function (req, res) {
 		var b = req.body.blue;
 		console.log('Set color (' + r + ', ' + g + ', ' + b + ')');
 		setColor(r, g, b);
-		res.send();
+		res.send({});
 	} else if (req.body.cmd == 'setbrightness') {
 		var b = req.body.b;
 		console.log('Set brightness: ' + b);
 		brightness = b;
 		setColor(current_r, current_g, current_b, true);
-		res.send();
+		res.send({});
+	} else if (req.body.cmd == 'status') {
+		console.log('Status request');
+		var status = 'off';
+		if (current_r != 0 || current_g != 0 || current_b != 0) {
+			status = 'on';
+		}
+		res.send({
+			status: status,
+			red: current_r,
+			green: current_g,
+			blue: current_b,
+			brightness: brightness
+		});
 	} else if (req.body.cmd == 'default') {
 		console.log('Default settings');
 		setColor(255, 255, 255, true);
