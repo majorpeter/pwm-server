@@ -1,0 +1,30 @@
+{
+  "name": "pwm-server",
+  "version": "1.0.0",
+  "description": "A website that controls the STM32F1 PWM extender",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/majorpeter/pwm-server.git"
+  },
+  "keywords": [
+    "pwm",
+    "stm32",
+    "cdc",
+    "usb"
+  ],
+  "author": "majorpeter",
+  "license": "ISC",
+  "dependencies": {
+    "express": "~4.15",
+    "body-parser": "~1.17"
+  },
+  "bugs": {
+    "url": "https://github.com/majorpeter/pwm-server/issues"
+  },
+  "homepage": "https://github.com/majorpeter/pwm-server#readme"
+}
