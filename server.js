@@ -13,7 +13,10 @@ var pwm_device = new tty.WriteStream(fs.openSync(DEV_FILE, "w"));
 var current_r = 0;
 var current_g = 0;
 var current_b = 0;
-var last_update_time = new Date().getTime();
+var brightness = 100;
+var last_update_time = 0;
+
+setColor(0, 0, 0, true);
 
 app.get('/', function (req, res) {
    fs.readFile( __dirname + "/" + "index.html", 'utf8', function (err, data) {
@@ -29,13 +32,19 @@ app.get('/index.html', function (req, res) {
 
 app.post('/rpc', function (req, res) {
 	if (req.body.cmd == 'setcolor') {
-		r = req.body.red;
-		g = req.body.green;
-		b = req.body.blue;
+		var r = req.body.red;
+		var g = req.body.green;
+		var b = req.body.blue;
 		console.log('Set color (' + r + ', ' + g + ', ' + b + ')');
 		setColor(r, g, b);
+		res.send();
+	} else if (req.body.cmd == 'setbrightness') {
+		var b = req.body.b;
+		console.log('Set brightness: ' + b);
+		brightness = b;
+		setColor(current_r, current_g, current_b, true);
+		res.send();
 	}
-	res.send();
 });
 
 
@@ -50,7 +59,7 @@ function writePwmControllerCmd(command) {
 	pwm_device.write(command + '\n');
 }
 
-function setColor(r, g, b) {
+function setColor(r, g, b, force = false) {
 	var update_time = new Date().getTime();
 	var delta = update_time - last_update_time;
 	if (delta < 100) {
@@ -58,16 +67,16 @@ function setColor(r, g, b) {
 	}
 	last_update_time = update_time;
 
-	if (r != current_r) {
-		writePwmControllerCmd('SET /PWM.R=' + r);
+	if ((r != current_r) || force) {
+		writePwmControllerCmd('SET /PWM.R=' + Math.floor(r * brightness / 100));
 		current_r = r;
 	}
-	if (g != current_g) {
-		writePwmControllerCmd('SET /PWM.G=' + g);
+	if ((g != current_g) || force) {
+		writePwmControllerCmd('SET /PWM.G=' + Math.floor(g * brightness / 100));
 		current_g = g;
 	}
-	if (b != current_b) {
-		writePwmControllerCmd('SET /PWM.B=' + b);
+	if ((b != current_b) || force) {
+		writePwmControllerCmd('SET /PWM.B=' + Math.floor(b * brightness / 100));
 		current_b = b;
 	}
 }

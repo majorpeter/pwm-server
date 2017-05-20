@@ -21,7 +21,7 @@ $(document).ready(function(){
 	});
 	$('input[type="number"]#brightness').change(function(e){
 		if (this.value < 0) this.value = 0;
-		else if (this.value > 255) this.value = 255;
+		else if (this.value > 100) this.value = 100;
 		updateSliders();
 		$.ajax({
 			method: 'POST',
@@ -37,7 +37,7 @@ $(document).ready(function(){
 	//color sliders
 	$('div#colors div.slider').mousedown(function(e){
 		if (e.target == this) {
-			var v = (e.pageX-$(this).offset().left)/$(this).innerWidth()*255;
+			var v = (e.pageX-$(this).offset().left)/$(this).innerWidth()*$(this).data('max');
 			$('input#'+this.classList[1]).val(Math.round(v)).trigger('change');
 			crSlider = this.classList[1];
 		}
@@ -45,9 +45,14 @@ $(document).ready(function(){
 	$(document).mousemove(function(e){
 		if (crSlider) {
 			var s = $('div.slider.'+crSlider);
-			var v = Math.round((e.pageX-s.offset().left)/s.innerWidth()*255);
-			if (v < 0) v = 0;
-			if (v > 255) v = 255;
+			var max = s.data('max');
+			var v = Math.round((e.pageX-s.offset().left)/s.innerWidth()*max);
+			if (v < 0) {
+				v = 0;
+			}
+			if (v > max) {
+				v = max;
+			}
 			$('input#'+crSlider).val(v).trigger('change');
 		}
 	});
@@ -63,7 +68,7 @@ function updateSliders() {
 	$('div.slider div.but.red').css('left', $('input.color#red').val()/2.55+'%');
 	$('div.slider div.but.green').css('left', $('input.color#green').val()/2.55+'%');
 	$('div.slider div.but.blue').css('left', $('input.color#blue').val()/2.55+'%');
-	$('div.slider div.but.brightness').css('left', $('input#brightness').val()/2.55+'%');
+	$('div.slider div.but.brightness').css('left', $('input#brightness').val()+'%');
 	
 	//generate preview color
 	var c = '#';
