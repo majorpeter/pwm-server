@@ -44,6 +44,16 @@ app.post('/rpc', function (req, res) {
 		brightness = b;
 		setColor(current_r, current_g, current_b, true);
 		res.send();
+	} else if (req.body.cmd == 'default') {
+		console.log('Default settings');
+		setColor(255, 255, 255, true);
+		res.send({});
+	} else if (req.body.cmd == 'off') {
+		console.log('Off called');
+		setColor(0, 0, 0, true);
+		res.send({});
+	} else {
+		console.log('Unsupported command: ' + req.body.cmd);
 	}
 });
 

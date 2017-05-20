@@ -45,6 +45,25 @@ div#header div.logo {
 	height: 50px;
 	margin-left: 15px;
 }
+div#header > div.pwr-container {
+	float: right;
+	display: block;
+	width: 55px;
+	height: 37px;
+	padding: 12px 0;
+	border-left: 1px solid #323232;
+}
+div#header div.power {
+	display: inline-block;
+	width: 32px;
+	height: 35px;
+	margin-left: 10px;
+	cursor: pointer;
+	background: url('/power-off.png');
+}
+div#header div.power.on {
+	background: url('/power-on.png');
+}
 
 div.control-box {
 	border: 4px solid #1e1e1e;

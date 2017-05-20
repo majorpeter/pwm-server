@@ -2,6 +2,30 @@
 var crSlider = null;
 
 $(document).ready(function(){
+	//on-off button
+	$('div#header div.power').click(function(){
+		if (this.classList.contains('on'))
+			$.ajax({
+				method: 'POST',
+				url: '/rpc',
+				data: {cmd: 'off'},
+				dataType: 'json',
+				success: function(){
+					$('div#header div.power').removeClass('on');
+				}
+			});
+		else
+			$.ajax({
+				method: 'POST',
+				url: '/rpc',
+				data: {cmd: 'default'},
+				dataType: 'json',
+				success: function() {
+					$('div#header div.power').addClass('on');
+				}
+			});
+	});
+	
 	//number inputs
 	$('input[type="number"].color').change(function(e){
 		if (this.value < 0) this.value = 0;
