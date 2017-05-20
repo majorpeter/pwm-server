@@ -5,9 +5,9 @@ var fs = require("fs");
 var tty = require("tty");
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + '/static'));
 
 const DEV_FILE = '/dev/ttyACM0';
-var local_files = ['index.html', 'style.css', 'app.js', 'jquery-3.2.1.min.js'];
 
 var pwm_device = new tty.WriteStream(fs.openSync(DEV_FILE, "w"));
 var current_r = 0;
@@ -21,12 +21,10 @@ app.get('/', function (req, res) {
    });
 });
 
-local_files.forEach(function(entry) {
-	app.get('/' + entry, function (req, res) {
-	   fs.readFile( __dirname + "/" + entry, 'utf8', function (err, data) {
-	       res.end( data );
-	   });
-	})
+app.get('/index.html', function (req, res) {
+   fs.readFile( __dirname + "/" + "index.html", 'utf8', function (err, data) {
+       res.end( data );
+   });
 });
 
 app.post('/rpc', function (req, res) {
