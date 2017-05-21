@@ -64,6 +64,7 @@ $(document).ready(function(){
 			var v = (e.pageX-$(this).offset().left)/$(this).innerWidth()*$(this).data('max');
 			$('input#'+this.classList[1]).val(Math.round(v)).trigger('change');
 			crSlider = this.classList[1];
+			refreshState();
 		}
 	});
 	$(document).mousemove(function(e){
@@ -82,6 +83,7 @@ $(document).ready(function(){
 	});
 	$(document).mouseup(function(e){
 		crSlider = null;
+		refreshState();
 	});
 	$('div#colors div.slider > div.but').mousedown(function(){
 		crSlider = this.classList[1];
