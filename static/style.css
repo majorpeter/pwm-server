@@ -53,6 +53,9 @@ div#header > div.pwr-container {
 	padding: 12px 0;
 	border-left: 1px solid #323232;
 }
+.uninited div#header > div.pwr-container {
+	display: none;
+}
 div#header div.power {
 	display: inline-block;
 	width: 32px;
@@ -98,6 +101,9 @@ div#colors > div.header > div.preview {
 	height: 20px;
 	border: 1px solid #C3C3C3;
 }
+.uninited div#colors > div.header > div.preview {
+	display: none;
+}
 div#colors table {
 	width: 100%;
 }
@@ -138,6 +144,9 @@ div#colors div.slider > div.but {
 }
 div#colors div.slider:hover > div.but {
 	background: #0087F0;
+}
+.uninited div#colors div.slider > div.but {
+	display: none;
 }
 
 div#colors input[type="number"] {

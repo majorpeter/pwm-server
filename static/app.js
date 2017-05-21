@@ -111,6 +111,7 @@ function refreshState() {
 			$('input#blue').val(response['blue']);
 			$('input#brightness').val(response['brightness']);
 			updateSliders();
+			$('body').removeClass('uninited');
 		}
 	});
 }
